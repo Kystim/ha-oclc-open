@@ -1,5 +1,7 @@
 # OCLC OPEN Library for Home Assistant
 
+[![HACS Custom](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz)
+
 Custom integration for public libraries whose online catalogue runs **OCLC OPEN**
 (BIBLIOTHECA web OPAC, the "Mein Konto" pages on DotNetNuke), e.g.
 [Stadtbücherei Iserlohn](https://opac.iserlohn.de).
@@ -37,6 +39,14 @@ Custom integration for public libraries whose online catalogue runs **OCLC OPEN*
 ## Installation (Marketplace)
 
 Since Home Assistant 2026.11, HACS is built in as the *Marketplace*.
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Kystim&repository=ha-oclc-open&category=integration)
+
+After installing:
+
+[![Open your Home Assistant instance and start setting up a new integration.](https://my.home-assistant.io/badges/config_flow_start.svg)](https://my.home-assistant.io/redirect/config_flow_start/?domain=oclc_open)
+
+Or manually:
 
 1. *Settings → Marketplace → Add from link* → `https://github.com/Kystim/ha-oclc-open`.
    Custom repositories need a one-time GitHub sign-in (read-only, public data).
