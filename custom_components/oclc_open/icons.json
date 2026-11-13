@@ -1,0 +1,19 @@
+{
+  "entity": {
+    "button": {
+      "renew_all": { "default": "mdi:book-refresh" }
+    },
+    "sensor": {
+      "loans": { "default": "mdi:bookshelf" },
+      "next_due_date": { "default": "mdi:calendar-clock" },
+      "days_until_due": { "default": "mdi:timer-sand" },
+      "reservations": { "default": "mdi:book-clock" },
+      "ready_for_pickup": { "default": "mdi:book-check" },
+      "fees": { "default": "mdi:cash" },
+      "card_valid_until": { "default": "mdi:card-account-details" }
+    }
+  },
+  "services": {
+    "renew": { "service": "mdi:book-refresh" }
+  }
+}

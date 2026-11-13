@@ -1,0 +1,88 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Library account",
+        "description": "Log in to a library catalogue running OCLC OPEN (BIBLIOTHECA).",
+        "data": {
+          "url": "Catalogue URL",
+          "username": "Library card number",
+          "password": "Password"
+        },
+        "data_description": {
+          "url": "Address of the online catalogue (its start page)",
+          "username": "The number below the barcode on your library card."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Password rejected",
+        "description": "The library rejected the password for card {username}.",
+        "data": {
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Card number or password rejected by the library.",
+      "cannot_connect": "The catalogue could not be reached.",
+      "unexpected_page": "The catalogue returned an unexpected page. Is this an OCLC OPEN catalogue?"
+    },
+    "abort": {
+      "already_configured": "This library card is already configured.",
+      "reauth_successful": "Password updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Renewal and updates",
+        "data": {
+          "auto_renew": "Renew automatically",
+          "auto_renew_days": "Days before due date",
+          "allow_renewal_fees": "Allow renewals that cost a fee",
+          "update_hours": "Update interval"
+        },
+        "data_description": {
+          "auto_renew": "Renew loans automatically when they are due soon. Items the library refuses to renew trigger a notification.",
+          "auto_renew_days": "Renew items due within this many days.",
+          "allow_renewal_fees": "When off, renewals the library charges for are refused.",
+          "update_hours": "How often the account is read."
+        }
+      }
+    }
+  },
+  "entity": {
+    "button": {
+      "renew_all": { "name": "Renew all" }
+    },
+    "sensor": {
+      "loans": { "name": "Loans", "unit_of_measurement": "items" },
+      "next_due_date": { "name": "Next due date" },
+      "days_until_due": { "name": "Days until due" },
+      "reservations": { "name": "Reservations", "unit_of_measurement": "items" },
+      "ready_for_pickup": { "name": "Ready for pickup", "unit_of_measurement": "items" },
+      "fees": { "name": "Fees" },
+      "card_valid_until": { "name": "Card valid until" }
+    }
+  },
+  "exceptions": {
+    "entry_not_loaded": { "message": "This library account is not loaded." },
+    "entry_required": { "message": "Several library accounts are configured; select one." }
+  },
+  "services": {
+    "renew": {
+      "name": "Renew loans",
+      "description": "Renews loans. Returns per item whether the due date moved.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Library account",
+          "description": "Account to use. Optional when only one is configured."
+        },
+        "copy_ids": {
+          "name": "Copy IDs",
+          "description": "Copy IDs from the loans sensor attributes. All renewable loans when empty."
+        }
+      }
+    }
+  }
+}

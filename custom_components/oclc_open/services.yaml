@@ -1,0 +1,13 @@
+renew:
+  fields:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: oclc_open
+    copy_ids:
+      required: false
+      example: '["M0123456"]'
+      selector:
+        text:
+          multiple: true

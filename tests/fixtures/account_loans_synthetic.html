@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- SYNTHETIC: modelled on opacclient's OpenAccountScraper selectors, not captured from a real
+     account. Replace with an anonymized capture once the Iserlohn account has loans. -->
+<html lang="de-DE"><head><title>Iserlohn &gt; Mein Konto</title></head><body>
+<form method="post" action="/Mein-Konto" id="Form" enctype="multipart/form-data">
+<input type="hidden" name="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" value="VS">
+<input type="hidden" name="__EVENTVALIDATION" value="EV">
+<input type="text" name="dnn$dnnSEARCH$txtSearch" value="">
+<input type="hidden" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$Culture" value="de-DE">
+<input type="hidden" name="dnn$ctr379$MainView$tpnlPatronAccount$ucPatronAccountView$PatronRndId" value="RND123">
+<script type="text/javascript">
+$(document).ready(function () { LoadExtensionsAsync("/DesktopModules/OCLC.OPEN.PL.DNN.PatronAccountModule/PatronAccountService.asmx/IsCatalogueCopyExtendable", 0, 'x'); });
+</script>
+<div class="dnnFormMessage dnnFormWarning">Ihr Ausweis läuft bald ab.</div>
+<table class="oclc-module-table" id="dnn_ctr379_MainView_tpnlLoans_ucLoansView_grdViewLoans">
+<tbody><tr>
+<th scope="col" class="loancheckboxall"><input type="checkbox" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans$ctl01$chkSelectAll"></th>
+<th scope="col" abbr="Cover">Cover</th>
+<th scope="col" abbr="Titel"><a href="javascript:__doPostBack('dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans','Sort$Title')">Titel</a></th>
+<th scope="col" abbr="Verfasser"><a href="javascript:__doPostBack('dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans','Sort$Author')">Verfasser</a></th>
+<th scope="col" abbr="Mediengruppe"><a href="javascript:__doPostBack('dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans','Sort$MediaGroup')">Mediengruppe</a></th>
+<th scope="col" abbr="Zweigstelle"><a href="javascript:__doPostBack('dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans','Sort$Branch')">Zweigstelle</a></th>
+<th scope="col" abbr="Frist"><a href="javascript:__doPostBack('dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans','Sort$DueDate')">Frist</a></th>
+<th scope="col" abbr="Verlängerungen">Verlängerungen</th>
+</tr><tr>
+<td><span class="loancheckbox"><input type="checkbox" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$chkSelect"></span>
+<input type="hidden" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans$ctl02$CopyIdChx" value="M1001"></td>
+<td><div class="coverRegion"><img id="x_coverView_0" src="/c.gif"></div></td>
+<td><a href="http://opac.iserlohn.de/?id=0100011">Testlied Eins</a></td>
+<td><span class="oclc-module-view-small oclc-module-label">Verfasser:</span><span>Muster, Max</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Mediengruppe:</span><span>Tonie</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Zweigstelle:</span><span>Stadtbücherei</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Frist:</span><span>09.10.2026</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Verlängerungen:</span><span>1</span></td>
+</tr><tr>
+<td><span class="loancheckbox"><input type="checkbox" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans$ctl03$chkSelect"></span>
+<input type="hidden" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$grdViewLoans$ctl03$CopyIdChx" value="M1002"></td>
+<td></td>
+<td><a href="http://opac.iserlohn.de/?id=0100012">Testbuch Vier</a></td>
+<td><span class="oclc-module-view-small oclc-module-label">Verfasser:</span><span>Beispiel, Berta</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Mediengruppe:</span><span>Buch</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Zweigstelle:</span><span>Letmathe</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Frist:</span><span>30.10.2026</span></td>
+<td><span class="oclc-module-view-small oclc-module-label">Verlängerungen:</span><span>0</span></td>
+</tr>
+</tbody></table>
+<input type="submit" name="dnn$ctr379$MainView$tpnlLoans$ucLoansView$BtnExtendMediumsBottom" value="Verlängern">
+<table class="oclc-module-table" id="dnn_ctr379_MainView_tpnlReservations_ucReservationsView_grdViewReservations">
+<tbody><tr>
+<th scope="col"></th><th scope="col" abbr="Cover">Cover</th><th scope="col" abbr="Titel">Titel</th><th scope="col" abbr="Verfasser">Verfasser</th><th scope="col" abbr="Mediengruppe">Mediengruppe</th><th scope="col" abbr="Vormerkdatum">Vormerkdatum</th>
+</tr><tr>
+<td><input type="checkbox" name="dnn$ctr379$MainView$tpnlReservations$ucReservationsView$grdViewReservations$ctl02$chkSelect"></td>
+<td></td>
+<td><a href="http://opac.iserlohn.de/?id=0100013">Testbuch Vormerkung</a></td>
+<td><span class="oclc-module-label">Verfasser:</span><span></span></td>
+<td><span class="oclc-module-label">Mediengruppe:</span><span>Buch</span></td>
+<td><span class="oclc-module-label">Vormerkdatum:</span><span>01.10.2026</span></td>
+</tr>
+</tbody></table>
+<table class="oclc-module-table" id="dnn_ctr379_MainView_tpnlReservations_ucReservationsView_grdViewReadyForPickups">
+<tbody><tr>
+<th scope="col" abbr="Cover">Cover</th><th scope="col" abbr="Titel">Titel</th><th scope="col" abbr="Verfasser">Verfasser</th><th scope="col" abbr="Mediengruppe">Mediengruppe</th><th scope="col" abbr="Zweigstelle">Zweigstelle</th><th scope="col" abbr="Abholfrist"><a href="javascript:__doPostBack('x','Sort$DueDate')">Abholfrist</a></th>
+</tr><tr>
+<td></td>
+<td><a href="http://opac.iserlohn.de/?id=0111111">Testbuch Abholung</a></td>
+<td><span class="oclc-module-label">Verfasser:</span><span>Usher, Sam</span></td>
+<td><span class="oclc-module-label">Mediengruppe:</span><span>Buch</span></td>
+<td><span class="oclc-module-label">Zweigstelle:</span><span>Stadtbücherei</span></td>
+<td><span class="oclc-module-label">Abholfrist:</span><span>Aktuelle Frist: 13.10.2026</span></td>
+</tr>
+</tbody></table>
+<span id="dnn_ctr379_MainView_tpnlFees_ucFeesView_lblFeeTotalData">3,00 EUR</span>
+<span id="dnn_ctr379_MainView_tpnlFees_ucFeesView_lblDepositData">1,00 EUR</span>
+<span id="dnn_ctr379_MainView_tpnlFees_ucFeesView_lblTotalSaldoData">-2,00 EUR</span>
+<span id="dnn_ctr379_MainView_tpnlPatronAccount_ucPatronAccountView_LblMembershipValidUntilData">31.12.2040</span>
+<script src="/DesktopModules/OCLC.OPEN.PL.DNN.BaseLibrary/JavaScriptFrameworks/OPEN/open.js?11.1.0.10" type="text/javascript"></script>
+</form></body></html>

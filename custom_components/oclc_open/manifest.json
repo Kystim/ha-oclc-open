@@ -1,0 +1,13 @@
+{
+  "domain": "oclc_open",
+  "name": "OCLC OPEN Library",
+  "codeowners": ["@Kystim"],
+  "config_flow": true,
+  "documentation": "https://github.com/Kystim/ha-oclc-open",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/Kystim/ha-oclc-open/issues",
+  "loggers": ["custom_components.oclc_open"],
+  "requirements": ["beautifulsoup4>=4.12.0"],
+  "version": "0.1.0"
+}

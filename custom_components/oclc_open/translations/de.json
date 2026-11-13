@@ -1,0 +1,88 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Bibliothekskonto",
+        "description": "Anmeldung bei einem Bibliothekskatalog mit OCLC OPEN (BIBLIOTHECA).",
+        "data": {
+          "url": "Katalog-Adresse",
+          "username": "Ausweisnummer",
+          "password": "Passwort"
+        },
+        "data_description": {
+          "url": "Adresse des Online-Katalogs (dessen Startseite)",
+          "username": "Die Nummer unter dem Barcode auf dem Bibliotheksausweis."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Passwort abgelehnt",
+        "description": "Die Bibliothek hat das Passwort für Ausweis {username} abgelehnt.",
+        "data": {
+          "password": "Passwort"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Ausweisnummer oder Passwort wurde von der Bibliothek abgelehnt.",
+      "cannot_connect": "Der Katalog ist nicht erreichbar.",
+      "unexpected_page": "Der Katalog hat eine unerwartete Seite geliefert. Ist das ein OCLC-OPEN-Katalog?"
+    },
+    "abort": {
+      "already_configured": "Dieser Bibliotheksausweis ist bereits eingerichtet.",
+      "reauth_successful": "Passwort aktualisiert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Verlängerung und Aktualisierung",
+        "data": {
+          "auto_renew": "Automatisch verlängern",
+          "auto_renew_days": "Tage vor Ablauf der Frist",
+          "allow_renewal_fees": "Kostenpflichtige Verlängerungen erlauben",
+          "update_hours": "Aktualisierungsintervall"
+        },
+        "data_description": {
+          "auto_renew": "Medien kurz vor Fristablauf automatisch verlängern. Lehnt die Bibliothek eine Verlängerung ab, gibt es eine Benachrichtigung.",
+          "auto_renew_days": "Medien verlängern, deren Frist innerhalb dieser Anzahl Tage endet.",
+          "allow_renewal_fees": "Wenn aus, werden Verlängerungen mit Gebühr abgebrochen.",
+          "update_hours": "Wie oft das Konto abgerufen wird."
+        }
+      }
+    }
+  },
+  "entity": {
+    "button": {
+      "renew_all": { "name": "Alle verlängern" }
+    },
+    "sensor": {
+      "loans": { "name": "Ausleihen", "unit_of_measurement": "Medien" },
+      "next_due_date": { "name": "Nächste Rückgabe" },
+      "days_until_due": { "name": "Tage bis zur Rückgabe" },
+      "reservations": { "name": "Vorbestellungen", "unit_of_measurement": "Medien" },
+      "ready_for_pickup": { "name": "Abholbereit", "unit_of_measurement": "Medien" },
+      "fees": { "name": "Gebühren" },
+      "card_valid_until": { "name": "Ausweis gültig bis" }
+    }
+  },
+  "exceptions": {
+    "entry_not_loaded": { "message": "Dieses Bibliothekskonto ist nicht geladen." },
+    "entry_required": { "message": "Mehrere Bibliothekskonten eingerichtet; bitte eines auswählen." }
+  },
+  "services": {
+    "renew": {
+      "name": "Ausleihen verlängern",
+      "description": "Verlängert Ausleihen. Liefert pro Medium, ob sich die Frist verschoben hat.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Bibliothekskonto",
+          "description": "Zu verwendendes Konto. Optional, wenn nur eines eingerichtet ist."
+        },
+        "copy_ids": {
+          "name": "Exemplar-IDs",
+          "description": "Exemplar-IDs aus den Attributen des Ausleihen-Sensors. Leer: alle verlängerbaren Ausleihen."
+        }
+      }
+    }
+  }
+}
