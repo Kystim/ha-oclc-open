@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # Versioned actions in the workflows (checkout, setup-uv). Branch refs such as
+  # hassfest@master and hacs/action@main are not updated by Dependabot.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  # Development dependencies in uv.lock (Home Assistant test harness, bs4).
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      dev:
+        patterns: ["*"]
