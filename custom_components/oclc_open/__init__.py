@@ -12,7 +12,7 @@ from .const import DOMAIN
 from .coordinator import OpenConfigEntry, OpenCoordinator
 from .services import async_setup_services
 
-PLATFORMS: list[Platform] = [Platform.BUTTON, Platform.SENSOR]
+PLATFORMS: list[Platform] = [Platform.BUTTON, Platform.CALENDAR, Platform.SENSOR]
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 

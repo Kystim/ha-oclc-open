@@ -23,6 +23,35 @@ Custom integration for public libraries whose online catalogue runs **OCLC OPEN*
 | Fees | unpaid fees in EUR | fee lines, totals |
 | Card valid until | expiry date of the library card | |
 | Renew all (button) | renews every loan the library allows | |
+| Calendar | on during an event; shows the next one | all-day events: returns (grouped per due date), pickup deadlines, card expiry |
+
+## Calendar
+
+The calendar (`calendar.iserlohn_library`, or `calendar.bucherei_iserlohn` in German) is
+read-only and built from the account data; it makes no extra requests. Event titles
+follow the Home Assistant language ("Rückgabe: 13 Medien" / "Return 13 items"). After a
+renewal the return event moves with the next update. Returned items disappear: the
+library only shows current loans.
+
+Reminder two days before a return:
+
+```yaml
+automation:
+  - alias: Library return reminder
+    triggers:
+      - trigger: calendar
+        event: start
+        entity_id: calendar.iserlohn_library
+        offset: "-2:00:00:00"
+    conditions:
+      - condition: template
+        value_template: "{{ 'Return' in trigger.calendar_event.summary or 'Rückgabe' in trigger.calendar_event.summary }}"
+    actions:
+      - action: notify.mobile_app_phone
+        data:
+          title: "{{ trigger.calendar_event.summary }}"
+          message: "{{ trigger.calendar_event.description }}"
+```
 
 ## Renewal
 
