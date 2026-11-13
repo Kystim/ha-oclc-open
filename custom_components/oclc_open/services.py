@@ -14,13 +14,20 @@ from homeassistant.core import (
 from homeassistant.exceptions import ServiceValidationError
 from homeassistant.helpers import config_validation as cv
 
-from .const import ATTR_CONFIG_ENTRY_ID, ATTR_COPY_IDS, DOMAIN, SERVICE_RENEW
+from .const import (
+    ATTR_CONFIG_ENTRY_ID,
+    ATTR_COPY_IDS,
+    ATTR_NEXT_DUE_ONLY,
+    DOMAIN,
+    SERVICE_RENEW,
+)
 from .coordinator import OpenConfigEntry
 
 RENEW_SCHEMA = vol.Schema(
     {
         vol.Optional(ATTR_CONFIG_ENTRY_ID): cv.string,
-        vol.Optional(ATTR_COPY_IDS): vol.All(cv.ensure_list, [cv.string]),
+        vol.Exclusive(ATTR_COPY_IDS, "selection"): vol.All(cv.ensure_list, [cv.string]),
+        vol.Exclusive(ATTR_NEXT_DUE_ONLY, "selection"): cv.boolean,
     }
 )
 
@@ -51,7 +58,9 @@ def async_setup_services(hass: HomeAssistant) -> None:
 
     async def renew(call: ServiceCall) -> ServiceResponse:
         entry = _entry(hass, call.data.get(ATTR_CONFIG_ENTRY_ID))
-        results = await entry.runtime_data.async_renew(call.data.get(ATTR_COPY_IDS))
+        results = await entry.runtime_data.async_renew(
+            call.data.get(ATTR_COPY_IDS), call.data.get(ATTR_NEXT_DUE_ONLY, False)
+        )
         return {"results": [result.as_dict() for result in results]}
 
     hass.services.async_register(

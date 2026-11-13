@@ -7,6 +7,7 @@ from datetime import date
 from unittest.mock import AsyncMock, patch
 
 import pytest
+import voluptuous as vol
 from freezegun.api import FrozenDateTimeFactory
 from homeassistant.config_entries import ConfigEntryState
 from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
@@ -145,6 +146,86 @@ async def test_renew_all_button_refused(hass: HomeAssistant, entry: MockConfigEn
             )
     # Only the renewable loan is requested.
     renew.assert_awaited_once_with(["M1001"], False)
+
+
+def two_batches() -> parser.AccountData:
+    """Two renewable loans due 09.10., one due 30.10."""
+    data = account()
+    data.loans[1].renewable = True
+    extra = copy.deepcopy(data.loans[0])
+    extra.title, extra.copy_id = "Testbuch Fünf", "M1003"
+    data.loans.append(extra)
+    return data
+
+
+async def test_renew_next_button(hass: HomeAssistant, entry: MockConfigEntry) -> None:
+    """Only the loans with the earliest due date are renewed."""
+    before = two_batches()
+    after = copy.deepcopy(before)
+    after.loans[0].due_date = after.loans[2].due_date = date(2026, 11, 4)
+    fetch = AsyncMock(side_effect=[before, after])
+    renew = AsyncMock(return_value=RenewOutcome("ok", []))
+    with patch(f"{CLIENT}.async_fetch", fetch), patch(f"{CLIENT}.async_renew", renew):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        button = hass.states.get("button.iserlohn_library_renew_next_due")
+        assert button.attributes["due_date"] == "2026-10-09"
+        assert button.attributes["titles"] == ["Testlied Eins", "Testbuch Fünf"]
+        await hass.services.async_call(
+            "button",
+            "press",
+            {"entity_id": "button.iserlohn_library_renew_next_due"},
+            blocking=True,
+        )
+
+    renew.assert_awaited_once_with(["M1001", "M1003"], False)
+    # The 30.10. loan is now the next batch.
+    button = hass.states.get("button.iserlohn_library_renew_next_due")
+    assert button.attributes["due_date"] == "2026-10-30"
+    assert button.attributes["titles"] == ["Testbuch Vier"]
+
+
+async def test_renew_service_next_due_only(hass: HomeAssistant, entry: MockConfigEntry) -> None:
+    """next_due_only selects the earliest batch and excludes copy_ids."""
+    before = two_batches()
+    fetch = AsyncMock(side_effect=[before, before])
+    renew = AsyncMock(return_value=RenewOutcome("ok", []))
+    with patch(f"{CLIENT}.async_fetch", fetch), patch(f"{CLIENT}.async_renew", renew):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        with pytest.raises(vol.Invalid):
+            await hass.services.async_call(
+                DOMAIN,
+                SERVICE_RENEW,
+                {"copy_ids": ["M1001"], "next_due_only": True},
+                blocking=True,
+            )
+        response = await hass.services.async_call(
+            DOMAIN, SERVICE_RENEW, {"next_due_only": True}, blocking=True, return_response=True
+        )
+    renew.assert_awaited_once_with(["M1001", "M1003"], False)
+    assert [r["copy_id"] for r in response["results"]] == ["M1001", "M1003"]
+
+
+async def test_renew_next_not_renewable(hass: HomeAssistant, entry: MockConfigEntry) -> None:
+    """A non-renewable earliest batch is not skipped in favour of a later one."""
+    data = account()
+    data.loans[0].renewable = False
+    data.loans[1].renewable = True
+    renew = AsyncMock()
+    with patch(f"{CLIENT}.async_fetch", AsyncMock(return_value=data)), patch(
+        f"{CLIENT}.async_renew", renew
+    ):
+        assert await hass.config_entries.async_setup(entry.entry_id)
+        await hass.async_block_till_done()
+        with pytest.raises(HomeAssistantError, match="Nothing to renew"):
+            await hass.services.async_call(
+                "button",
+                "press",
+                {"entity_id": "button.iserlohn_library_renew_next_due"},
+                blocking=True,
+            )
+    renew.assert_not_awaited()
 
 
 async def test_auto_renew(hass: HomeAssistant, entry: MockConfigEntry) -> None:

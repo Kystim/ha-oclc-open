@@ -35,6 +35,17 @@ EVENT_RENEWAL = f"{DOMAIN}_renewal"
 type OpenConfigEntry = ConfigEntry[OpenCoordinator]
 
 
+def next_due(data: AccountData | None) -> tuple[date | None, list[Loan]]:
+    """Earliest due date and all loans due that day."""
+    if data is None:
+        return None, []
+    dates = [loan.due_date for loan in data.loans if loan.due_date]
+    if not dates:
+        return None, []
+    day = min(dates)
+    return day, [loan for loan in data.loans if loan.due_date == day]
+
+
 @dataclass(slots=True)
 class RenewalResult:
     """Outcome for one item."""
@@ -141,13 +152,20 @@ class OpenCoordinator(DataUpdateCoordinator[AccountData]):
         self._report(results, error, automatic=True)
         return new_data
 
-    async def async_renew(self, copy_ids: list[str] | None) -> list[RenewalResult]:
-        """Renew the given copies (all renewable loans when None)."""
+    async def async_renew(
+        self, copy_ids: list[str] | None, next_due_only: bool = False
+    ) -> list[RenewalResult]:
+        """Renew the given copies.
+
+        Without copy ids: all renewable loans, or only those with the earliest
+        due date when next_due_only is set.
+        """
         data = self.data
         if data is None:
             raise HomeAssistantError("No account data yet")
         if copy_ids is None:
-            loans = [loan for loan in data.loans if loan.copy_id and loan.renewable is not False]
+            pool = next_due(data)[1] if next_due_only else data.loans
+            loans = [loan for loan in pool if loan.copy_id and loan.renewable is not False]
         else:
             wanted = set(copy_ids)
             loans = [loan for loan in data.loans if loan.copy_id in wanted]

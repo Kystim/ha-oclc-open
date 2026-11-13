@@ -23,15 +23,17 @@ Custom integration for public libraries whose online catalogue runs **OCLC OPEN*
 | Fees | unpaid fees in EUR | fee lines, totals |
 | Card valid until | expiry date of the library card | |
 | Renew all (button) | renews every loan the library allows | |
+| Renew next due (button) | renews only the loans with the earliest due date | `due_date`, `titles` it would renew |
 | Calendar | on during an event; shows the next one | all-day events: returns (grouped per due date), pickup deadlines, card expiry |
 
 ## Calendar
 
 The calendar (`calendar.iserlohn_library`, or `calendar.bucherei_iserlohn` in German) is
 read-only and built from the account data; it makes no extra requests. Event titles
-follow the Home Assistant language ("Rückgabe: 13 Medien" / "Return 13 items"). After a
-renewal the return event moves with the next update. Returned items disappear: the
-library only shows current loans.
+follow the Home Assistant language ("Rückgabe: 13 Medien" / "Return 13 items"). Renewals
+through Home Assistant move the event right away; renewals elsewhere (website, counter)
+show up with the next poll. Returned items disappear: the library only shows current
+loans.
 
 Reminder two days before a return:
 
@@ -55,9 +57,13 @@ automation:
 
 ## Renewal
 
-- **Manual:** press *Renew all* or call `oclc_open.renew`, optionally with
-  `copy_ids` from the loans attributes. The service returns per item whether the due
-  date moved.
+- **Manual:** press *Renew next due* or *Renew all*, or call `oclc_open.renew` with
+  `next_due_only: true` or `copy_ids` from the loans attributes (neither: all renewable
+  loans). The action returns per item whether the due date moved.
+- The library counts the new loan period from the day of renewal, not from the old due
+  date, and limits the number of renewals. *Renew all* also renews loans due later,
+  for little gain; *Renew next due* only takes the earliest batch. If that batch cannot
+  be renewed, nothing is renewed.
 - **Automatic:** enable in the integration options. Loans due within the configured
   number of days are renewed once per due date. Refusals (reserved by someone else,
   renewal limit reached) create a persistent notification.

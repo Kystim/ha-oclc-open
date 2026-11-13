@@ -3,6 +3,9 @@
     "button": {
       "renew_all": {
         "default": "mdi:book-refresh"
+      },
+      "renew_next": {
+        "default": "mdi:book-arrow-right"
       }
     },
     "calendar": {

@@ -60,6 +60,17 @@
     "button": {
       "renew_all": {
         "name": "Renew all"
+      },
+      "renew_next": {
+        "name": "Renew next due",
+        "state_attributes": {
+          "due_date": {
+            "name": "Due date"
+          },
+          "titles": {
+            "name": "Titles"
+          }
+        }
       }
     },
     "sensor": {
@@ -109,6 +120,10 @@
         "copy_ids": {
           "name": "Copy IDs",
           "description": "Copy IDs from the loans sensor attributes. All renewable loans when empty."
+        },
+        "next_due_only": {
+          "name": "Next due date only",
+          "description": "Renew only the loans with the earliest due date. Cannot be combined with copy IDs."
         }
       }
     }

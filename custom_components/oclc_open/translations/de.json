@@ -60,6 +60,17 @@
     "button": {
       "renew_all": {
         "name": "Alle verlängern"
+      },
+      "renew_next": {
+        "name": "Nächste Frist verlängern",
+        "state_attributes": {
+          "due_date": {
+            "name": "Fälligkeitsdatum"
+          },
+          "titles": {
+            "name": "Titel"
+          }
+        }
       }
     },
     "sensor": {
@@ -109,6 +120,10 @@
         "copy_ids": {
           "name": "Exemplar-IDs",
           "description": "Exemplar-IDs aus den Attributen des Ausleihen-Sensors. Leer: alle verlängerbaren Ausleihen."
+        },
+        "next_due_only": {
+          "name": "Nur nächste Frist",
+          "description": "Verlängert nur die Ausleihen mit der frühesten Frist. Nicht mit Exemplar-IDs kombinierbar."
         }
       }
     }

@@ -25,3 +25,4 @@ MIN_UPDATE_INTERVAL: Final = timedelta(minutes=30)
 SERVICE_RENEW: Final = "renew"
 ATTR_COPY_IDS: Final = "copy_ids"
 ATTR_CONFIG_ENTRY_ID: Final = "config_entry_id"
+ATTR_NEXT_DUE_ONLY: Final = "next_due_only"
