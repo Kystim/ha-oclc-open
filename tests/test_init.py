@@ -74,17 +74,17 @@ async def test_setup_and_sensors(hass: HomeAssistant, entry: MockConfigEntry) ->
         await hass.async_block_till_done()
 
     assert entry.state is ConfigEntryState.LOADED
-    loans = hass.states.get("sensor.iserlohn_12345678_loans")
+    loans = hass.states.get("sensor.iserlohn_library_loans")
     assert loans.state == "2"
     assert loans.attributes["renewable"] == 1
     assert loans.attributes["loans"][0]["copy_id"] == "M1001"
-    assert hass.states.get("sensor.iserlohn_12345678_next_due_date").state == "2026-10-09"
-    assert hass.states.get("sensor.iserlohn_12345678_days_until_due").state == "2"
-    assert hass.states.get("sensor.iserlohn_12345678_reservations").state == "1"
-    assert hass.states.get("sensor.iserlohn_12345678_ready_for_pickup").state == "1"
-    assert hass.states.get("sensor.iserlohn_12345678_fees").state == "2.00"
-    assert hass.states.get("sensor.iserlohn_12345678_card_valid_until").state == "2040-12-31"
-    assert hass.states.get("button.iserlohn_12345678_renew_all") is not None
+    assert hass.states.get("sensor.iserlohn_library_next_due_date").state == "2026-10-09"
+    assert hass.states.get("sensor.iserlohn_library_days_until_due").state == "2"
+    assert hass.states.get("sensor.iserlohn_library_reservations").state == "1"
+    assert hass.states.get("sensor.iserlohn_library_ready_for_pickup").state == "1"
+    assert hass.states.get("sensor.iserlohn_library_fees").state == "2.00"
+    assert hass.states.get("sensor.iserlohn_library_card_valid_until").state == "2040-12-31"
+    assert hass.states.get("button.iserlohn_library_renew_all") is not None
 
     assert await hass.config_entries.async_unload(entry.entry_id)
 
@@ -125,7 +125,7 @@ async def test_renew_service(hass: HomeAssistant, entry: MockConfigEntry) -> Non
         ]
     }
     assert len(events) == 1 and events[0].data["automatic"] is False
-    assert hass.states.get("sensor.iserlohn_12345678_next_due_date").state == "2026-10-30"
+    assert hass.states.get("sensor.iserlohn_library_next_due_date").state == "2026-10-30"
 
 
 async def test_renew_all_button_refused(hass: HomeAssistant, entry: MockConfigEntry) -> None:
@@ -140,7 +140,7 @@ async def test_renew_all_button_refused(hass: HomeAssistant, entry: MockConfigEn
             await hass.services.async_call(
                 "button",
                 "press",
-                {"entity_id": "button.iserlohn_12345678_renew_all"},
+                {"entity_id": "button.iserlohn_library_renew_all"},
                 blocking=True,
             )
     # Only the renewable loan is requested.
@@ -164,7 +164,7 @@ async def test_auto_renew(hass: HomeAssistant, entry: MockConfigEntry) -> None:
     renew.assert_awaited_once_with(["M1001"], False)
     assert [e.data["renewed"] for e in events] == [True]
     assert events[0].data["automatic"] is True
-    assert hass.states.get("sensor.iserlohn_12345678_next_due_date").state == "2026-10-30"
+    assert hass.states.get("sensor.iserlohn_library_next_due_date").state == "2026-10-30"
 
 
 async def test_auto_renew_refused_notifies_once(

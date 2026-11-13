@@ -34,14 +34,24 @@ Custom integration for public libraries whose online catalogue runs **OCLC OPEN*
 - Every attempt fires an `oclc_open_renewal` event (`title`, `renewed`,
   `old_due_date`, `new_due_date`, `automatic`).
 
-## Installation (HACS)
+## Installation (Marketplace)
 
-1. HACS → ⋮ → *Custom repositories* → `https://github.com/Kystim/ha-oclc-open`,
-   type *Integration*.
-2. Install *OCLC OPEN Library*, restart Home Assistant.
+Since Home Assistant 2026.11, HACS is built in as the *Marketplace*.
+
+1. *Settings → Marketplace → Add from link* → `https://github.com/Kystim/ha-oclc-open`.
+   Custom repositories need a one-time GitHub sign-in (read-only, public data).
+2. Install *OCLC OPEN Library*.
 3. *Settings → Devices & services → Add integration → OCLC OPEN Library*.
    Enter the catalogue URL, card number and password (Iserlohn default: date of birth
    as `TT.MM.JJJJ`).
+
+Updates appear as update entities; installing an update needs a restart.
+
+On Home Assistant before 2026.11 with standalone HACS: HACS → ⋮ → *Custom
+repositories* → the URL above, type *Integration*, then restart after installing.
+
+The device is named after the library ("Iserlohn library" / "Bücherei Iserlohn"),
+so dashboard cards show names like "Iserlohn library Next due date".
 
 ## Development
 

@@ -13,7 +13,7 @@ from homeassistant.config_entries import (
     ConfigFlowResult,
     OptionsFlowWithReload,
 )
-from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
+from homeassistant.const import CONF_NAME, CONF_PASSWORD, CONF_URL, CONF_USERNAME
 from homeassistant.core import callback
 from homeassistant.helpers.selector import (
     BooleanSelector,
@@ -90,6 +90,7 @@ class OpenConfigFlow(ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(
                     title=f"{name or urlparse(url).netloc} ({username})",
                     data={
+                        CONF_NAME: name or urlparse(url).netloc,
                         CONF_URL: url,
                         CONF_USERNAME: username,
                         CONF_PASSWORD: user_input[CONF_PASSWORD],

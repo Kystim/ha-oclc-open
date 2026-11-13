@@ -51,23 +51,51 @@
       }
     }
   },
+  "device": {
+    "library": {
+      "name": "Bücherei {name}"
+    }
+  },
   "entity": {
     "button": {
-      "renew_all": { "name": "Alle verlängern" }
+      "renew_all": {
+        "name": "Alle verlängern"
+      }
     },
     "sensor": {
-      "loans": { "name": "Ausleihen", "unit_of_measurement": "Medien" },
-      "next_due_date": { "name": "Nächste Rückgabe" },
-      "days_until_due": { "name": "Tage bis zur Rückgabe" },
-      "reservations": { "name": "Vorbestellungen", "unit_of_measurement": "Medien" },
-      "ready_for_pickup": { "name": "Abholbereit", "unit_of_measurement": "Medien" },
-      "fees": { "name": "Gebühren" },
-      "card_valid_until": { "name": "Ausweis gültig bis" }
+      "loans": {
+        "name": "Ausleihen",
+        "unit_of_measurement": "Medien"
+      },
+      "next_due_date": {
+        "name": "Nächste Rückgabe"
+      },
+      "days_until_due": {
+        "name": "Tage bis zur Rückgabe"
+      },
+      "reservations": {
+        "name": "Vorbestellungen",
+        "unit_of_measurement": "Medien"
+      },
+      "ready_for_pickup": {
+        "name": "Abholbereit",
+        "unit_of_measurement": "Medien"
+      },
+      "fees": {
+        "name": "Gebühren"
+      },
+      "card_valid_until": {
+        "name": "Ausweis gültig bis"
+      }
     }
   },
   "exceptions": {
-    "entry_not_loaded": { "message": "Dieses Bibliothekskonto ist nicht geladen." },
-    "entry_required": { "message": "Mehrere Bibliothekskonten eingerichtet; bitte eines auswählen." }
+    "entry_not_loaded": {
+      "message": "Dieses Bibliothekskonto ist nicht geladen."
+    },
+    "entry_required": {
+      "message": "Mehrere Bibliothekskonten eingerichtet; bitte eines auswählen."
+    }
   },
   "services": {
     "renew": {

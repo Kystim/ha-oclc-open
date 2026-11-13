@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 from homeassistant.config_entries import SOURCE_USER
-from homeassistant.const import CONF_PASSWORD, CONF_URL, CONF_USERNAME
+from homeassistant.const import CONF_NAME, CONF_PASSWORD, CONF_URL, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 from pytest_homeassistant_custom_component.common import MockConfigEntry
@@ -46,6 +46,7 @@ async def test_user_flow(hass: HomeAssistant) -> None:
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert result["title"] == "Iserlohn (12345678)"
     assert result["data"] == {
+        CONF_NAME: "Iserlohn",
         CONF_URL: "https://opac.iserlohn.de",
         CONF_USERNAME: "12345678",
         CONF_PASSWORD: "01.02.1990",

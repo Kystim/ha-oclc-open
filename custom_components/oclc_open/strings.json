@@ -51,23 +51,51 @@
       }
     }
   },
+  "device": {
+    "library": {
+      "name": "{name} library"
+    }
+  },
   "entity": {
     "button": {
-      "renew_all": { "name": "Renew all" }
+      "renew_all": {
+        "name": "Renew all"
+      }
     },
     "sensor": {
-      "loans": { "name": "Loans", "unit_of_measurement": "items" },
-      "next_due_date": { "name": "Next due date" },
-      "days_until_due": { "name": "Days until due" },
-      "reservations": { "name": "Reservations", "unit_of_measurement": "items" },
-      "ready_for_pickup": { "name": "Ready for pickup", "unit_of_measurement": "items" },
-      "fees": { "name": "Fees" },
-      "card_valid_until": { "name": "Card valid until" }
+      "loans": {
+        "name": "Loans",
+        "unit_of_measurement": "items"
+      },
+      "next_due_date": {
+        "name": "Next due date"
+      },
+      "days_until_due": {
+        "name": "Days until due"
+      },
+      "reservations": {
+        "name": "Reservations",
+        "unit_of_measurement": "items"
+      },
+      "ready_for_pickup": {
+        "name": "Ready for pickup",
+        "unit_of_measurement": "items"
+      },
+      "fees": {
+        "name": "Fees"
+      },
+      "card_valid_until": {
+        "name": "Card valid until"
+      }
     }
   },
   "exceptions": {
-    "entry_not_loaded": { "message": "This library account is not loaded." },
-    "entry_required": { "message": "Several library accounts are configured; select one." }
+    "entry_not_loaded": {
+      "message": "This library account is not loaded."
+    },
+    "entry_required": {
+      "message": "Several library accounts are configured; select one."
+    }
   },
   "services": {
     "renew": {
